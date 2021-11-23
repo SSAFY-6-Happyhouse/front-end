@@ -3,6 +3,8 @@
     <v-container fluid class="px-0 py-0">
       <v-row justify="center" align="center">
         <SearchToggle />
+        <recommendToggle />
+        <router-link to="/realty/register">매물 등록</router-link>
       </v-row>
     </v-container>
   
@@ -11,12 +13,14 @@
 </template>
 
 <script>
-import SearchToggle from "../components/search/SearchToggle.vue"
+import SearchToggle from "@/components/search/SearchToggle.vue"
+import recommendToggle from "@/components/recommend/recommendToggle.vue"
 export default {
   name: "Home",
 
   components: {
     SearchToggle,
+    recommendToggle
   },
 };
 </script>

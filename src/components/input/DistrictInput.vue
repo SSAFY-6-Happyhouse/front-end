@@ -36,7 +36,7 @@ export default {
     
     data() {
         return {
-            sidos: ['서울','광주'],
+            sidos: [],
             guguns : [],
             dongs : [],
         }
