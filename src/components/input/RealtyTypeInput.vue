@@ -6,31 +6,21 @@
                 <span style="color: #1a73e8;">매물종류</span> </b> 
             </p>
          </v-col>
-        <v-col md="2" sm="2" cols="12" >
+        <v-col md="2" sm="1" cols="12" >
             <input type="radio" v-model="relaty_type" value="0">아파트
         </v-col>
-        <v-col md="2" sm="2" cols="12" >
+        <v-col md="2" sm="1" cols="12" >
             <input type="radio" v-model="relaty_type" value="1">오피스텔
         </v-col>
-        <v-col md="2" sm="2" cols="12" >
+        <v-col md="2" sm="1" cols="12" >
             <input type="radio" v-model="relaty_type" value="2">빌라
         </v-col>
-        <v-col md="2" sm="2" cols="12" >
+        <v-col md="2" sm="1" cols="12" >
             <input type="radio" v-model="relaty_type" value="3">단독주택
         </v-col>
     </v-row>
     </v-container>
 </template>
-<!--<template>
-//         매물 종류
-//         <input type="radio" v-model="relaty_type" value="0">아파트
-//         <input type="radio" v-model="relaty_type" value="1">오피스텔
-//         <input type="radio" v-model="relaty_type" value="2">빌라
-///     
-/         <input type="radio" v-model="relaty_type" value="3">단독 주택
-//     </section>
-// </template> -->
-
 
 <script>
 export default {

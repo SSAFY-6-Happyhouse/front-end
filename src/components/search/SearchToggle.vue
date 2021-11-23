@@ -13,6 +13,12 @@
         <District/>
         <Contract/>
         <RealtyType/>
+        <SegwonTag/>
+        <Price/>
+        <KeyWordSearchOne/>
+        <DateForm/>
+        
+        <!-- <Map/> -->
       </v-expansion-panel-content>
     </v-expansion-panel>
   </v-expansion-panels>
@@ -26,6 +32,11 @@ export default {
       District : ()=>import('@/components/input/DistrictInput'),
       Contract : ()=>import('@/components/input/ContractTypeInput'),
       RealtyType : ()=>import('@/components/input/RealtyTypeInput'),
+      SegwonTag : ()=>import('@/components/input/SegwonTagInput'),
+      // Map : ()=>import('@/components/KakaoMap/KakaoMap'),
+      DateForm : ()=>import('@/components/input/DateInput'),
+      Price : ()=>import('@/components/input/PriceInput'),
+      KeyWordSearchOne : () =>import('@/components/input/KeywordInput')
     },
 
     data() {

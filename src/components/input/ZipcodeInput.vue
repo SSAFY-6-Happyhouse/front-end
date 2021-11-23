@@ -1,11 +1,12 @@
 <template>
     <div class="daummap">
-        <input type="text" class="addr1" id="addr1" placeholder="서울특별시 서초구 -" v-model="addr1" disabled> <br/>
-        <input type="text" class="addr2" id="addr2" placeholder="" v-model="addr2" > <br/>
-        <input type="text" class="addr1" id="zip" placeholder="서울특별시 서초구 -" v-model="zip" disabled> 
-
-
-        <button @click="showApi">주소API 호출</button> 
+        <input type="text" class="addr1" id="addr1" placeholder="서울시 -" v-model="addr1" disabled> 
+        <input type="text" class="addr2" id="addr2" placeholder="마포구 -" v-model="addr2" > 
+        <input type="text" class="addr1" id="zip" placeholder="합정동" v-model="zip" disabled>
+        <button @click="showApi">주소API 호출</button> <br/>
+        <input type="text" class="addr1" id="zip" placeholder="상세주소" v-model="z" >
+        
+        
     </div>
 
 </template>
