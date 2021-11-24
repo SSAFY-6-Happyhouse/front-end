@@ -65,6 +65,13 @@
           <v-spacer></v-spacer>
           
       </v-card-text>
+      <!--방향 이동해준다. -->
+      <div class="text-center">
+        <v-pagination
+          v-model="page"
+          :length="6"
+        ></v-pagination>
+      </div>
     </v-card> 
   </v-container>
 </div>
@@ -106,6 +113,7 @@ export default {
            myregisterVisible: true,
            myGimVisible: false,
            myFavoriteVisible : false,
+           page: 1,
         }
     },
     computed:{
