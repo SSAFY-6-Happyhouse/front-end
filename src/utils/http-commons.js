@@ -1,9 +1,9 @@
 import axios from "axios";
 
 export default axios.create({
-    baseURL: "http://localhost:8080",
+    baseURL: "http://3.37.1.251:8080",
     headers: {
-        "Authorization": "Bearer " //vuex token 갖고오기
+       
 
     }
 })
