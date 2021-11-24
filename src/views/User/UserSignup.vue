@@ -55,6 +55,7 @@
 
 
 <script>
+import http from "@/utils/http-commons.js";
 export default {
     components :{
          land:()=>import('@/components/input/DistrictInput')
@@ -111,9 +112,19 @@ export default {
             this.favorite_land.push('land')
         },
         validate() {
-            
+            http.post("/user",{
+                username : this.id,
+                password : this.password,
+                phone : this.phone,
+            }).then((res) => {
+                if(res.status === 201){
+                    alert("회원가입이 완료되었습니다.")
+                    this.$route.push("/")
+                }
+            });
             //  if (this.$refs.loginForm.validate()) {
             //     // submit form to server/API here...
+                
             //  }
         },
         

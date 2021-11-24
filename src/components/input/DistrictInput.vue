@@ -41,7 +41,9 @@ export default {
             dongs : [],
         }
     },
-
+    beforeCreate :{
+      //시도 name, code 넣기
+    },
     methods : {
         onChange_sido(event) {
             console.log(event.target.value)
