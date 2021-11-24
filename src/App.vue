@@ -69,7 +69,7 @@
               </v-col>
             </v-row>
           <v-row>
-            <v-col>아이디가 없으십니까?? <router-link to="/user/signup"  @click="dialog = false">회원가입</router-link></v-col> 
+            <v-col>아이디가 없으십니까?? <span  @click="goRegister">회원가입</span></v-col> 
           </v-row>
           <v-row>
             <v-col>아이디/비밀번호를 잊어버렸습니까?? 아이디/비밀번호 찾기</v-col> 
@@ -96,7 +96,6 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-
     </v-app-bar>
 
     <v-main>
@@ -169,6 +168,12 @@ export default {
         console.error(error);
       }
     },
+
+    
+    goRegister(){
+      this.dialog = false
+      this.$router.push("/user/signup")
+    }
   
   },
 };

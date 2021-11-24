@@ -29,6 +29,12 @@ const routes = [
       import("../views/Realty/RealtyUpdate.vue"),  
   },
   {
+    path: "/realty/delete",
+    name: "Realty Delete",
+    component: () =>
+      import("../views/Realty/RealtyDelete.vue"),  
+  },
+  {
     path: "/realty/:id",
     name: "Realty Detail",
     component: () =>
@@ -52,6 +58,7 @@ const routes = [
     component: () =>
       import("../views/User/UserUpdate.vue"),  
   },
+  
   
 ];
 

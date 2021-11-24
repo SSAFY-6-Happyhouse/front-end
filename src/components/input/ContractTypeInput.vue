@@ -25,7 +25,7 @@ export default {
     
     data() {
         return {
-            Contract_type:""
+            ContractType:""
         }
     },
 

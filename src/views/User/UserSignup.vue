@@ -21,23 +21,27 @@
                   <v-col cols="12">
                       <v-text-field block v-model="verify" :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'" :rules="[rules.required, passwordMatch]" :type="show1 ? 'text' : 'password'" name="input-10-1" label="Confirm Password" counter @click:append="show1 = !show1"></v-text-field>
                   </v-col>
+                  <v-col>
+                  <addressInfo/>
+                  </v-col>
                   <v-col cols="12">
                       <v-text-field v-model="phone" label="Phone" required></v-text-field>
                   </v-col>
+                  
                   <v-col md="3" sm="6" cols="12" class>
                     <p class="google-font mb-0" style="font-weight: 500;font-size:100%"><b>
                       <span style="color: #1a73e8;">선호지역</span> </b> 
                     <v-button class="ma-2" @click="add_Count">추가</v-button>
                     </p>
                   </v-col>
-                  <v-show Checking_count>
-                  <v-col v-for= "idx in count" :key ="idx" cols="12">
-                      <land/>
+                  
+                  <v-col  v-for= "idx in count" :key ="idx" cols="12">
+                      <land v-if="count<=3"></land>
                   </v-col>
-                  </v-show>
+                  
                   
                   <v-col cols="12">
-
+                    <favoriteTag/>
                   </v-col>
 
                   <v-spacer></v-spacer>
@@ -58,7 +62,9 @@
 import http from "@/utils/http-commons.js";
 export default {
     components :{
-         land:()=>import('@/components/input/DistrictInput')
+         land:()=>import('@/components/input/DistrictInput'),
+         favoriteTag:()=>import('@/components/input/SegwonTagInput'),
+         addressInfo:()=>import('@/components/input/ZipcodeInput'),
     },
     data() {
         return {
@@ -92,13 +98,16 @@ export default {
             showData(){
                 alert(this.count)
                 return this.count
+            },
+            makeOption(){
+
             }
         }
        
     },
 
     methods :{
-        Checking_count() {
+        CheckingCount() {
             alert(this.count)
             if(this.count > 3) {
               return false
