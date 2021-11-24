@@ -3,56 +3,44 @@
     <v-row align="center">
           <v-col md="12" sm="12" cols="12">
               <p class="google-font mb-0" style="font-weight: 350;font-size:200%"><b>
-                  <span style="color: #1a73e8;">정보수정</span> </b> 
+                  <span style="color: #1a73e8;">회원 정보 수정</span> </b> 
               </p>
           </v-col>
       </v-row>
   
     <v-card class="px-4">
       <v-card-text>
-          <v-form v-model.lazy="valid">
-              <v-row>
-                  <v-col cols="12">
-                      <v-text-field v-model="id" :rules="[rules.required]" label="id" maxlength="15" required></v-text-field>
-                  </v-col>
-                  <v-col cols="12">
-                      <v-text-field v-model="password" :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'" :rules="[rules.required, rules.min]" :type="show1 ? 'text' : 'password'" name="input-10-1" label="Password" hint="At least 8 characters" counter @click:append="show1 = !show1"></v-text-field>
-                  </v-col>
-                  <v-col cols="12">
-                      <v-text-field block v-model="verify" :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'" :rules="[rules.required, passwordMatch]" :type="show1 ? 'text' : 'password'" name="input-10-1" label="Confirm Password" counter @click:append="show1 = !show1"></v-text-field>
-                  </v-col>
-                  <v-col>
-                  <addressInfo/>
-                  </v-col>
-                  <v-col cols="12">
-                      <v-text-field v-model="phone" label="Phone" required></v-text-field>
-                  </v-col>
-                  
-                  <v-col md="3" sm="6" cols="12" class>
-                    <p class="google-font mb-0" style="font-weight: 500;font-size:100%"><b>
-                      <span style="color: #1a73e8;">선호지역</span> </b> 
-                    
-                    </p>
-                  </v-col>
-                  <v-show Checking_count>
-                  <v-col v-for= "idx in count" :key ="idx" cols="12">
-                      <land disable/>
-                      <v-button class="ma-2" @click="ChangeInfo">수정</v-button>
-                  </v-col>
-                  </v-show>
-                  
-                  <v-col cols="12">
-                    <favoriteTag/>
-                  </v-col>
-
-                  <v-spacer></v-spacer>
-                </v-row>
-                <v-row>
-                  <v-col class="d-flex ml-auto" cols="12" sm="3" xsm="12">
-                      <v-btn x-large block :disabled="!valid" color="success" @click="validate">Register</v-btn>
-                  </v-col>
-              </v-row>
-          </v-form>
+        <v-row dense>
+          <v-col cols="2"></v-col>
+              <v-col cols="2" align-self="end">아이디</v-col
+              ><input v-model="id" readonly :rules="[rules.required]" label="id" maxlength="15" required>
+        </v-row>
+        <v-row dense>
+          <v-col cols="2"></v-col>
+          <v-col cols="2" align-self="end">주소</v-col>
+                <addressInfo/>
+        </v-row>
+        <v-row dense>
+          <v-col cols="2"></v-col>
+          <v-col cols="2" align-self="end">전화번호</v-col>
+                <input v-model="phone" label="Phone">
+        </v-row>
+       <v-row>
+          <v-col cols="2"></v-col>
+          <v-col cols="2" align-self="end">선호지역</v-col>
+                <div v-for= "(land,i) in lands" :key="i" :id="i">
+                  <select value="land.sido" disabled></select> 시
+                  <select value="land.gugun" disabled></select>구
+                  <select value="land.dong" disabled></select> 동
+                  <button @click="ChangeInfo">수정</button>
+                </div>
+          
+       </v-row>
+       <v-row dense>
+          <v-col cols="2"></v-col>
+          <v-col cols="2" align-self="end">선호세권</v-col>
+                <favoriteTag/>
+       </v-row>
       </v-card-text>
     </v-card>
   </div>
@@ -63,9 +51,32 @@
 // import {mapState} from '@/store/index'
 export default {
   
+  components :{
+    addressInfo : ()=>import('@/components/input/ZipcodeInput'),
+    favoriteTag : ()=>import('@/components/input/SegwonTagInput')
+  },
+
   data (){
     return{
-      favorite:[]
+      id:"hello",
+      phone : "011-4565-9123",
+      rules: {
+        required: value => !!value || "Required.",
+        min: v => (v && v.length >= 8) || "Min 8 characters"
+      },
+      lands :
+      [
+      {
+        "sido" : "서울",
+        "gugun" : "마포구",
+        "dong": "합정동"
+      },
+      {
+        "sido" : "서울",
+        "gugun" : "양천구",
+        "dong": "목동"
+      }
+      ]
     }
   },
   computed :{

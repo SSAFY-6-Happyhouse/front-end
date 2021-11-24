@@ -27,7 +27,7 @@
         v-model="dates"
         width="200"
         no-title
-        height ="150"
+        height ="90"
         range
     >
     </v-date-picker>

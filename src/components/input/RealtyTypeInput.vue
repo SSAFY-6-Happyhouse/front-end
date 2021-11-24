@@ -27,7 +27,7 @@ export default {
     
     data() {
         return {
-            relaty_type:""
+            relatyType:""
         }
     },
 
