@@ -7,16 +7,16 @@
             </p>
          </v-col>
         <v-col md="2" sm="1" cols="12" >
-            <input type="radio" v-model="relaty_type" value="0">아파트
+            <input type="radio" v-model="relatyType" value="0">아파트
         </v-col>
         <v-col md="2" sm="1" cols="12" >
-            <input type="radio" v-model="relaty_type" value="1">오피스텔
+            <input type="radio" v-model="relatyType" value="1">오피스텔
         </v-col>
         <v-col md="2" sm="1" cols="12" >
-            <input type="radio" v-model="relaty_type" value="2">빌라
+            <input type="radio" v-model="relatyType" value="2">빌라
         </v-col>
         <v-col md="2" sm="1" cols="12" >
-            <input type="radio" v-model="relaty_type" value="3">단독주택
+            <input type="radio" v-model="relatyType" value="3">단독주택
         </v-col>
     </v-row>
     </v-container>

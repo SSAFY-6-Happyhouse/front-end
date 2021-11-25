@@ -15,16 +15,26 @@
 </template>
 
 <script>
+import { mapState,  mapMutations } from "vuex";
+
   export default {
     data: () => ({
-      keyword : '',
+      keyword : null,
       keywords: [],
     }),
 
+    computed :{
+      ...mapState(['keywords'])
+    },
+
     methods : {
-        search(){
-            this.keywords.push(this.keyword)
-        }
+      ...mapMutations(['setKeyWords']),
+      search(){
+          this.keywords.push(this.keyword)
+          this.keyword=null
+          this.setKeyWords(this.keywords)
+
+      }
     }
 
   }

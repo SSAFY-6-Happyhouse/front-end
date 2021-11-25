@@ -3,7 +3,7 @@
     <v-container fluid class="py-0">
     <v-row align="center" class="fill-height">
         <v-col md="2" sm="2" cols="12" >
-                <v-select :items="sidos" @change="onChange_sido($event)" ></v-select>
+                <v-select :v-model="sidoCode" :options="sidos" @change="gugunList" ></v-select>
         </v-col>
          <v-col md="1" sm="2" cols="12" >  
                 <p class="google-font mb-0" style="font-weight: 350;font-size:50%"><b>
@@ -11,7 +11,7 @@
                 </p>
          </v-col>
          <v-col md="2" sm="2" cols="12" >
-            <v-select :items="guguns" @change="onChange_gugun($event)" ></v-select>
+            <v-select v-model="gugunCode" :options="guguns" @change="dongList" ></v-select>
         </v-col>
          <v-col md="1" sm="2" cols="12" >
             <p class="google-font mb-0" style="font-weight: 350;font-size:50%"><b>
@@ -19,7 +19,7 @@
             </p>
         </v-col>    
          <v-col md="2" sm="2" cols="12" >  
-            <v-select :items="dongs" @change="onChange_dong($event)" ></v-select>
+            <v-select  v-model="dongCode" :options="dongs" @change="onChange_dong($event)" ></v-select>
         </v-col> 
          <v-col md="1" sm="2" cols="12" >   
             <p class="google-font mb-0" style="font-weight: 350;font-size:50%"><b>
@@ -32,24 +32,41 @@
 
 <script>
 
+import { mapState, mapActions, mapMutations } from "vuex";
+
 export default {
     
     data() {
         return {
-            sidos: [],
-            guguns : [],
-            dongs : [],
+           sidoCode: null,
+           gugunCode: null,
+           dongCode: null,
         }
     },
-    beforeCreate :{
-      //시도 name, code 넣기
+    computed: {
+    ...mapState(["sidos", "guguns","dongs"]),
+    // sidos() {
+    //   return this.$store.state.sidos;
+    // },
+    },
+    created() {
+        // this.$store.dispatch("getSido");
+        // this.sidoList();
+        this.CLEAR_SIDO_LIST();
+        this.getSido();
     },
     methods : {
-        onChange_sido(event) {
-            console.log(event.target.value)
+        ...mapActions(["getSido", "getGugun", "getDong"]),
+        ...mapMutations(["CLEAR_SIDO_LIST", "CLEAR_GUGUN_LIST","CLEAR_DONG_LIST"]),
+        gugunList() {
+            this.CLEAR_GUGUN_LIST();
+            this.gugunCode=null;
+            if (this.sidoCode) this.getGugun(this.sidoCode);
         },
-        onChange_gugun(event) {
-            console.log(event.target.value)
+        dongList() {
+            this.CLEAR_DONG_LIST();
+            this.dongCode=null;
+            if (this.gugunCode) this.getDong(this.gugunCode);
         },
         onChange_dong(event) {
             console.log(event.target.value)
