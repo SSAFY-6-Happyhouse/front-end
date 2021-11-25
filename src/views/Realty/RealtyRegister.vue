@@ -270,5 +270,5 @@ export default {
 </script>
 
 <style>
-  input[type="text"] { border: solid 2px #D2691E; border-radius: 8px; }
+  input[type="text"] { border: solid 2px; border-radius: 8px; }
 </style>

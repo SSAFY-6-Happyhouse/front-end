@@ -24,10 +24,12 @@
       md ="4"
     >
     <v-date-picker
-        v-model="dates"
+        v-model="date"
         width="200"
         no-title
+        :allowed-dates="allowedDates"
         height ="90"
+        class="mt-4"
         range
     >
     </v-date-picker>
@@ -36,30 +38,51 @@
 </template>
 
 <script>
-  export default {
-    components :{
-
-      // DataModal : ()=>import("@/components/modal/DateModal")
-
-    },
+import {mapState,mapMutations} from "vuex";
+export default {
     data: () => ({
-      dates: [],
+      date: '',
       show : false
     }),
     computed: {
-      dateRangeText () {
-        return this.dates.join(' ~ ')
-      },
+       ...mapState(["Dates"]),
     },
 
+    created :{
+      leadingZeros(n, digits) {
+	    var zero = '';
+	    n = n.toString();
+
+	    if (n.length < digits) {
+	        for (var i = 0; i < digits - n.length; i++)
+	            zero += '0';
+	    }
+	    return zero + n;
+	    },
+    },
     methods : {
+       ...mapMutations(["setDates"]),
       handleClickModalSwitch(){
           // alert(this.show)
           this.show = !this.show
       },
-      showdataRangeText(){
-        alert(this.dates)
-      }
+      
+      allowedDates(){
+        var now = new Date();
+        if(this.date){
+          now = 
+            this.leadingZeros(now.getFullYear(), 4) + '-' +
+            this.leadingZeros(now.getMonth() + 1, 2) + '-' +
+            this.leadingZeros(now.getDate(), 2);
+          if(this.date>now){
+              this.setDates(this.date);
+          }
+        }
+
+      },
+      
+      
+      
     }
 
   }

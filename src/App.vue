@@ -16,25 +16,25 @@
           
           <!--로그인 작업 처리 -->
           <v-btn
-          v-if="this.$store.state.token==null"
+          v-if="token==null"
           class="ma-2"
           elevation="2" @click="dialog = true"
           >로그인</v-btn>      
 
           <v-btn
-          v-if="this.$store.state.token==null"
+          v-if="token==null"
           class="ma-2"
           elevation="2" router-link to="/user/signup"
           >회원가입</v-btn>
 
           <v-btn
-          v-if="this.$store.state.token!=null"
+          v-if="token!=null"
           class="ma-2"
-          elevation="2"
+          elevation="2" @click ="logout"
           >로그아웃</v-btn>      
 
           <v-btn
-          v-if="this.$store.state.token!=null"
+          v-if="token!=null"
 
           class="ma-2"
           elevation="2" router-link to="/user/mypage"
@@ -55,14 +55,14 @@
               <v-col cols="12">
                 <v-text-field
                   label="id"
-                  v-model="username"
+                  v-model="user.username"
                   required
                 ></v-text-field>
               </v-col>
               <v-col cols="12">
                 <v-text-field
                   label="Password"
-                  v-model="password"
+                  v-model="user.password"
                   type="password"
                   required
                 ></v-text-field>
@@ -82,7 +82,7 @@
           <v-btn
             color="blue darken-1"
             text
-            @click="login()"
+            @click="confirm"
           >
             Login
           </v-btn>
@@ -131,7 +131,8 @@
 </template>
 
 <script>
-import http from "@/utils/http-commons.js";
+import { mapState, mapActions } from "vuex";
+
 export default {
   name: "App",
 
@@ -145,30 +146,25 @@ export default {
         'Contact Us',
       ],
     dialog : false,
-    username : '',
-    password : '',
+    user:{
+       username : '',
+       password : '',
+    }
+   
   }),
-
+  computed: {
+    ...mapState(["token"])
+  },
   methods : {
-    login() {
-      try{
-        http
-          .post("/user/signin", {
-            username : this.username,
-            password : this.password
-          })
-          .then((res) => {
-            if(res.status === 200) {
-              this.$store.state.token = res.data;
-              this.$router.go(this.$router.currentRoute);
-
-            }
-          });
-      } catch (error) {
-        console.error(error);
+    ...mapActions(["userConfirm","logout"]),
+    async confirm(){
+      await this.userConfirm(this.user);
+      //let token = sessionStorage.getItem("access-token");
+      if (this.token) {
+          this.dialog= false;
+          this.$router.push("/")
       }
     },
-
     
     goRegister(){
       this.dialog = false

@@ -3,6 +3,7 @@
     <v-container fluid class="px-0 py-0">
       <v-row justify="center" align="center">
         <SearchToggle />
+        <KakaoMap/>
         <recommendToggle />
         <router-link to="/realty/register">매물 등록</router-link>
       </v-row>
@@ -15,12 +16,16 @@
 <script>
 import SearchToggle from "@/components/search/SearchToggle.vue"
 import recommendToggle from "@/components/recommend/recommendToggle.vue"
+import KakaoMap from "@/components/KakaoMap/KakaoMap.vue"
+
 export default {
   name: "Home",
 
   components: {
     SearchToggle,
+    KakaoMap,
     recommendToggle
+    
   },
 };
 </script>

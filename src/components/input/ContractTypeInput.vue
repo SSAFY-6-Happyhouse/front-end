@@ -7,13 +7,13 @@
         </p>
         </v-col>
          <v-col md="2" sm="2" cols="12" >  
-                <input type="radio" v-model="sale_type" value="0">월세
+                <input type="radio"  value="MONTHLYRENT" v-model="ContractType" @click="makeContract">월세
          </v-col>
          <v-col md="2" sm="2" cols="12" >
-                <input type="radio" v-model="sale_type" value="1">전세
+                <input type="radio" value="LONGTERMRENT" v-model="ContractType" @click="makeContract">전세
         </v-col>    
         <v-col md="2" sm="2" cols="12" >
-                <input type="radio" v-model="sale_type" value="2">매매
+                <input type="radio" value="SALE" v-model="ContractType" @click="makeContract">매매
         </v-col>    
     </v-row>
 </v-container>
@@ -21,16 +21,21 @@
 
 
 <script>
+import {mapState,mapMutations} from "vuex";
 export default {
-    
     data() {
         return {
-            ContractType:""
+            ContractType: null
         }
     },
-
+    computed:{
+        ...mapState(["ContractType"]),
+    },
     methods : {
-        
+        ...mapMutations(["setcontractType"]),
+        makeContract(){
+            this.setcontractType(this.ContractType)
+        }
     }
 
 }

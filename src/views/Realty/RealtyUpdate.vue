@@ -195,7 +195,7 @@
         color="blue darken-1"
         text
       >
-        <router-link to="/">제출</router-link>
+        <router-link to="/">수정</router-link>
       </v-btn>
       <v-btn
         color="blue darken-1"
@@ -207,3 +207,64 @@
     </v-card>    
   </div>
 </template>
+
+<script>
+//import axios from 'axios'
+import ContractType from '@/components/input/ContractTypeInput'
+import RealtyType from '@/components/input/RealtyTypeInput'
+import ZipcodeInput from '@/components/input/ZipcodeInput'
+import DateInput from '@/components/input/DateInput'
+export default {
+
+  components:{
+    ContractType,
+    RealtyType,
+    ZipcodeInput,
+    DateInput
+  },
+  data: ()=>({
+    Bestimage: '',
+    realtyName: '',
+    rules: {
+        required: value => !!value || "Required.",
+        min: v => (v && v.length >= 8) || "Min 8 characters"
+      },
+    floor:'1',
+    area: '',
+    park_possible : false,
+    images : [],
+    Options: [],
+    desc : '안녕하세요'
+  }),
+  methods: {
+    // uploadImage: function() {
+    //   let form = new FormData()
+    //   let image = this.$refs['image'].files[0]
+      
+    //   form.append('image', image)
+ 
+    //   axios.post('/upload', form, {
+    //       header: { 'Content-Type': 'multipart/form-data' }
+    //   }).then( ({data}) => {
+    //     this.images = data
+    //   })
+    //   .catch( err => console.log(err))
+    // },
+    clickInputTag: function() {
+      this.$refs['image'].click()
+    },
+    dropInputTag: function(num, event) {
+      //let file = Array.from(event.dataTransfer.files, v => v)
+      //this.uploadImage(num, file)
+      console.log(num)
+      console.log(event)
+    },
+    removeImage: function(num) {
+      this.images.splice(num, 1, null)
+    },
+    showImageMenu: function(num, bool) {
+      this.$set(this.show, num, bool)
+    },
+  }
+}
+</script>
