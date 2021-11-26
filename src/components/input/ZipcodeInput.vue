@@ -1,7 +1,7 @@
 <template>
     <div class="daummap">
         <input type="text" class="addr1" id="addr1" placeholder="서울시 - 마포구 -" v-model="addr1" disabled> 
-        <input type="text" class="addr2" id="addr2" placeholder="상세주소를 넣어주세요" v-model="addr2" > 
+        <input type="text" class="addr2" id="addr2" placeholder="상세주소를 넣어주세요" v-model="addr2" @Change ="inputaddr2"> 
         <input type="text" class="addr1" id="zip" placeholder="우편번호" v-model="zip" disabled>
         <button @click="showApi">주소API 호출</button> <br/>
     </div>
@@ -9,6 +9,7 @@
 </template>
 
 <script>
+import {mapState,mapMutations} from "vuex"
 export default {
     name: "KakaoZipCode",
     data() { 
@@ -19,7 +20,11 @@ export default {
         } 
         
     },
+    computed :{
+        ...mapState(['addr1','addr2','zip'])
+    },
     methods: { 
+        ...mapMutations(['setAddr1','setAddr2','setZip']),
         showApi() { 
             new window.daum.Postcode({ 
                 oncomplete: (data) => { 
@@ -42,12 +47,17 @@ export default {
                     } // 도로명, 지번 주소의 유무에 따라 해당 조합형 주소를 추가한다. 
                     if(fullRoadAddr !== ''){ fullRoadAddr += extraRoadAddr; } 
                     // 우편번호와 주소 정보를 해당 필드에 넣는다. 
-                    this.zip = data.zonecode; 
+                    this.setZip(data.zonecode); 
                     //5자리 새우편번호 사용 
-                    this.addr1 = fullRoadAddr; 
+                    this.setAddr1(fullRoadAddr); 
                     } 
             }).open() 
-        } 
+        },
+    
+    inputaddr2(){
+        this.setAddr2(this.addr2)
+    }
+
     }
 
 }

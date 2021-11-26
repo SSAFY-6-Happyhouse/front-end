@@ -42,6 +42,7 @@
                       <land v-if="count<=3"></land>
                   </v-col>
                   
+                  <v-btn @click = "checkpassword">체크 </v-btn> 
                   
                   <v-col cols="12">
                     <favoriteTag/>
@@ -51,7 +52,7 @@
                 </v-row>
                 <v-row>
                   <v-col class="d-flex ml-auto" cols="12" sm="3" xsm="12">
-                      <v-btn x-large block :disabled="!valid" color="success" @click="validate">Register</v-btn>
+                      <v-btn x-large block :disabled="!valid" color="success" @click="userInfoRegister">Register</v-btn>
                   </v-col>
               </v-row>
           </v-form>
@@ -62,7 +63,9 @@
 
 
 <script>
-import http from "@/utils/http-commons.js";
+//import http from "@/utils/http-commons.js";
+import {mapState,mapActions} from "vuex"
+
 export default {
     components :{
          land:()=>import('@/components/input/DistrictInput'),
@@ -80,7 +83,6 @@ export default {
         phone: "",
         favorite_land :[],
         name : "",
-        favoriteTags : [],
         
         show1: false,
         rules: {
@@ -90,22 +92,16 @@ export default {
         
         }
     },
-    // computed:{
-        
-    //     methods : {
-            
-    //         makeOption(){
-
-    //         }
-    //     }
-       
-    // },
+    computed:{
+         ...mapState(['Segwons','dongCodes']),
+    },
 
     methods :{
+        ...mapActions(['setRegister']),
         passwordMatch() {
                 console.log(this.password === this.verify)
                 return () => this.password === this.verify || "Password must match";
-    },
+        },
         add_Count(){
             if(this.count<3){
                 this.count = this.count+1;
@@ -114,25 +110,28 @@ export default {
         add: function(){
             this.favorite_land.push('land')
         },
-        validate() {
-            http.post("/user",{
+
+        userInfoRegister(){
+            this.setRegister({
                 username : this.id,
                 password : this.password,
+                name : this.name,
                 phone : this.phone,
-            }).then((res) => {
-                if(res.status === 201){
-                    alert("회원가입이 완료되었습니다.")
-                    this.$route.push("/")
-                }
-            });
-            //  if (this.$refs.loginForm.validate()) {
+                dongCode : this.dongCodes,
+                segwon:this.Segwons
+
+            })
+        },
+        checkpassword(){
+            alert(this.Segwons)
+        }
+           //  if (this.$refs.loginForm.validate()) {
             //     // submit form to server/API here...
                 
             //  }
         },
         
     }
-}
 </script>
 
 

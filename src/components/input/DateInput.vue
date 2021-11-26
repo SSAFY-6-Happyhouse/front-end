@@ -3,7 +3,7 @@
     <v-col md="4" sm="4" cols="12" class>
          <p class="google-font mb-1" style="font-weight: 500;font-size:100%"><b>
             <span style="color: #1a73e8;">입주가능일</span> </b> 
-            <button @click="showdataRangeText">체크</button> 
+            <button @click="changeDate">등록</button> 
         </p>
         <!-- <v-if = > -->
     </v-col>    
@@ -27,10 +27,8 @@
         v-model="date"
         width="200"
         no-title
-        :allowed-dates="allowedDates"
         height ="90"
-        class="mt-4"
-        range
+        class="mt-4" 
     >
     </v-date-picker>
     </v-col>
@@ -42,23 +40,13 @@ import {mapState,mapMutations} from "vuex";
 export default {
     data: () => ({
       date: '',
-      show : false
+      show : false,
     }),
     computed: {
        ...mapState(["Dates"]),
+      dateRangeText () {
+        return this.date
     },
-
-    created :{
-      leadingZeros(n, digits) {
-	    var zero = '';
-	    n = n.toString();
-
-	    if (n.length < digits) {
-	        for (var i = 0; i < digits - n.length; i++)
-	            zero += '0';
-	    }
-	    return zero + n;
-	    },
     },
     methods : {
        ...mapMutations(["setDates"]),
@@ -66,24 +54,17 @@ export default {
           // alert(this.show)
           this.show = !this.show
       },
+
+      showdataRangeText(){
+        alert(this.date)
+      },
       
-      allowedDates(){
-        var now = new Date();
-        if(this.date){
-          now = 
-            this.leadingZeros(now.getFullYear(), 4) + '-' +
-            this.leadingZeros(now.getMonth() + 1, 2) + '-' +
-            this.leadingZeros(now.getDate(), 2);
-          if(this.date>now){
-              this.setDates(this.date);
-          }
+      changeDate(){
+             this.setDates(this.date);
         }
 
       },
       
-      
-      
-    }
 
   }
 </script>

@@ -1,20 +1,22 @@
 <template>
 <v-container fluid class="py-0">
-    <v-row align="center" class="fill-height">
+    <v-row dense>
         <v-col md="3" sm="6" cols="12" class>
          <p class="google-font mb-0" style="font-weight: 500;font-size:100%"><b>
             <span style="color: #1a73e8;">거래종류</span> </b> 
         </p>
         </v-col>
+        <v-radio-group v-model="ContractType">
          <v-col md="2" sm="2" cols="12" >  
-                <input type="radio"  value="MONTHLYRENT" v-model="ContractType" @click="makeContract">월세
+                <v-radio  :value="0" label="월세" @click="makeContract"></v-radio>
          </v-col>
          <v-col md="2" sm="2" cols="12" >
-                <input type="radio" value="LONGTERMRENT" v-model="ContractType" @click="makeContract">전세
+                <v-radio :value="1" label="전세" @click="makeContract"></v-radio>
         </v-col>    
         <v-col md="2" sm="2" cols="12" >
-                <input type="radio" value="SALE" v-model="ContractType" @click="makeContract">매매
-        </v-col>    
+                <v-radio :value="2" label="매매" @click="makeContract"></v-radio>
+        </v-col>
+        </v-radio-group>    
     </v-row>
 </v-container>
 </template>

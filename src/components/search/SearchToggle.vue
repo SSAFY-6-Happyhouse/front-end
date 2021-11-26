@@ -12,7 +12,7 @@
         </p>
         </v-col>
         <District/>
-        <Contract v-model="setContractType"/>
+        <Contract/>
         <RealtyType/>
         <SegwonTag/>
         <Price/>
@@ -27,8 +27,12 @@
   </v-expansion-panels>
 </template>
 <script>
+import {mapState} from "vuex"
 export default {
     
+    computed :{
+      ...mapState(['contract'])
+    },
     name: "SearchToggle",
     
     components :{

@@ -19,68 +19,36 @@
             >
             <v-checkbox 
                 v-model="Segwons"
-                label="역세권"
+                label="마세권"
                 value="1"
+                @click="addSegwons(value)"
             >
             </v-checkbox>
-            <v-checkbox 
-                v-model="Segwons"
-                label="학세권"
-                value="2"
-            >
-            </v-checkbox>
-            </v-col>
-            <v-col
-            cols="12"
-            sm="4"
-            md="2"
-            >
             <v-checkbox 
                 v-model="Segwons"
                 label="편세권"
+                value="2"
+                @click="addSegwons(value)"
+            >
+            </v-checkbox>
+            </v-col>
+            <v-col
+            cols="12"
+            sm="4"
+            md="2"
+            >
+            <v-checkbox 
+                v-model="Segwons"
+                label="학세권"
                 value="3"
+                @click="addSegwons(value)"
             >
             </v-checkbox>
             <v-checkbox 
                 v-model="Segwons"
-                label="숲세권"
+                label="역세권"
                 value="4"
-            >
-            </v-checkbox>
-            </v-col>
-            <v-col
-            cols="12"
-            sm="4"
-            md="2"
-            >
-            <v-checkbox 
-                v-model="Segwons"
-                label="도세권"
-                value="5"
-            >
-            </v-checkbox>
-            <v-checkbox 
-                v-model="Segwons"
-                label="병세권"
-                value="6"
-            >
-            </v-checkbox>
-            </v-col>
-            <v-col
-            cols="12"
-            sm="4"
-            md="2"
-            >
-            <v-checkbox 
-                v-model="Segwons"
-                label="별세권"
-                value="7"
-            >
-            </v-checkbox>
-            <v-checkbox 
-                v-model="Segwons"
-                label="수세권"
-                value="8"
+                @click="addSegwons(value)"
             >
             </v-checkbox>
             </v-col>
@@ -92,15 +60,51 @@
             <v-checkbox 
                 v-model="Segwons"
                 label="문세권"
-                value="9"
+                value="5"
+                @click="addSegwons(value)"
             >
             </v-checkbox>
             <v-checkbox 
                 v-model="Segwons"
-                label="주세권"
-                value="10"
+                label="숲세권"
+                value="6"
+                @click="addSegwons(value)"
             >
             </v-checkbox>
+            </v-col>
+            <v-col
+            cols="12"
+            sm="4"
+            md="2"
+            >
+            <v-checkbox 
+                v-model="Segwons"
+                label="주세권"
+                value="7"
+                @click="addSegwons(value)"
+            >
+            </v-checkbox>
+            <v-checkbox 
+                v-model="Segwons"
+                label="별세권"
+                value="8"
+                @click="addSegwons(value)"
+            >
+            </v-checkbox>
+            </v-col>
+            <v-col
+            cols="12"
+            sm="4"
+            md="2"
+            >
+            <v-checkbox 
+                v-model="Segwons"
+                label="병세권"
+                value="9"
+                @click="addSegwons(value)"
+            >
+            </v-checkbox>
+            
             </v-col>
         </v-row>
     </v-row>
@@ -109,12 +113,32 @@
 </template>
 
 <script>
+import {mapState,mapMutations} from "vuex"
 export default {
+    
+    computed:{
+        ...mapState(["Segwons"]),
+    },
+
     data(){
         return {
+            Segwon:'',
             Segwons:[],
         }
     },
+
+    methods : {
+       ...mapMutations(['setSegwon']),
+       
+       addSegwons(){
+           //this.Segwons.push(value)
+           this.setSegwon(this.Segwons);
+       },
+
+       
+       
+    }
+
 }
 </script>
 

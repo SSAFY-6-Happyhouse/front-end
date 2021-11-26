@@ -2,8 +2,10 @@
 <template>
     <v-container fluid class="py-0">
     <v-row align="center" class="fill-height">
+        <v-btn @click="check_sido">클릭</v-btn>
         <v-col md="2" sm="2" cols="12" >
-                <v-select :v-model="sidoCode" :options="sidos" @change="gugunList" ></v-select>
+                <v-select v-model="sidoCode" :items="sidos" :item-value="sidos.sidoCode"
+           @change="gugunList" ></v-select>
         </v-col>
          <v-col md="1" sm="2" cols="12" >  
                 <p class="google-font mb-0" style="font-weight: 350;font-size:50%"><b>
@@ -11,7 +13,7 @@
                 </p>
          </v-col>
          <v-col md="2" sm="2" cols="12" >
-            <v-select v-model="gugunCode" :options="guguns" @change="dongList" ></v-select>
+            <v-select v-model="gugunCode" :items="guguns" :item-value="guguns.gugunCode" @change="dongList" ></v-select>
         </v-col>
          <v-col md="1" sm="2" cols="12" >
             <p class="google-font mb-0" style="font-weight: 350;font-size:50%"><b>
@@ -19,7 +21,7 @@
             </p>
         </v-col>    
          <v-col md="2" sm="2" cols="12" >  
-            <v-select  v-model="dongCode" :options="dongs" @change="onChange_dong($event)" ></v-select>
+            <v-select  v-model="dongCode" :items="dongs" :item-value="dongs.dongCode" @change="onChange_dong()" ></v-select>
         </v-col> 
          <v-col md="1" sm="2" cols="12" >   
             <p class="google-font mb-0" style="font-weight: 350;font-size:50%"><b>
@@ -27,6 +29,7 @@
             </p>
         </v-col>
     </v-row>
+    
     </v-container>
 </template>
 
@@ -41,11 +44,12 @@ export default {
            sidoCode: null,
            gugunCode: null,
            dongCode: null,
+           dongCodes :[],
         }
     },
     computed: {
-    ...mapState(["sidos", "guguns","dongs"]),
-    // sidos() {
+    ...mapState(["sidos", "guguns", "dongs"]),
+    // sidos() { 
     //   return this.$store.state.sidos;
     // },
     },
@@ -57,7 +61,7 @@ export default {
     },
     methods : {
         ...mapActions(["getSido", "getGugun", "getDong"]),
-        ...mapMutations(["CLEAR_SIDO_LIST", "CLEAR_GUGUN_LIST","CLEAR_DONG_LIST"]),
+        ...mapMutations(["CLEAR_SIDO_LIST", "CLEAR_GUGUN_LIST","CLEAR_DONG_LIST","SET_DongCode"]),
         gugunList() {
             this.CLEAR_GUGUN_LIST();
             this.gugunCode=null;
@@ -68,9 +72,17 @@ export default {
             this.dongCode=null;
             if (this.gugunCode) this.getDong(this.gugunCode);
         },
-        onChange_dong(event) {
-            console.log(event.target.value)
+        onChange_dong() {
+            this.dongCodes.push(this.dongCode)
+            this.SET_DongCode(this.dongCodes);
+
         },
+
+        check_sido(){
+            this.guguns.forEach((gugun) => {
+                console.log(gugun.value)
+            })
+        }
     }
 
 }

@@ -29,17 +29,21 @@
           ><ZipcodeInput/>
       </v-row>
       
+      <br>
+      <br>
       <v-row dense>
-        <v-col md="4" col="12">
-          층수 : <input v_model="floor" rules.required type="text"> 층
+        <v-col md="3" col="12">
+          난방 : <input v-model="heat" type="text"/> 
         </v-col>
-        <v-col md="4" col="12">
-          면적 : <input v_model="area" rules.required type="text"> 평
+        <v-col md="3" col="12">
+          면적 : <input v-model="area" type="text"/> 평
         </v-col>
-        <v-col md="4" col="12">
-          주차여부 : 
-          <input type="radio" value=true v-model="park_possible" /> <label for=true>가능 </label>
-          <input type="radio" value=false v-model="park_possible" /> <label for=false>불가능</label>
+        <v-col md="3" col="12">
+          방수 : <input v-model="rooms" type="text"/> 개
+        </v-col>
+        <v-col md="3" col="12">
+          엘리베이터 수 : 
+          <input v-model="elevators" type="text"/> 개
         </v-col>   
       </v-row>
 
@@ -190,12 +194,14 @@
     <v-spacer></v-spacer>
 
     <v-card-actions>
+      <v-btn @click="checkAddress">체크</v-btn>
       <v-spacer></v-spacer>
       <v-btn
         color="blue darken-1"
         text
+        @click = "sendRealty" 
       >
-        <router-link to="/">제출</router-link>
+        제출
       </v-btn>
       <v-btn
         color="blue darken-1"
@@ -210,6 +216,8 @@
 
 <script>
 //import axios from 'axios'
+
+import {mapState,mapActions} from 'vuex'
 import ContractType from '@/components/input/ContractTypeInput'
 import RealtyType from '@/components/input/RealtyTypeInput'
 import ZipcodeInput from '@/components/input/ZipcodeInput'
@@ -229,14 +237,20 @@ export default {
         required: value => !!value || "Required.",
         min: v => (v && v.length >= 8) || "Min 8 characters"
       },
-    floor:'1',
+    heat:'',
     area: '',
-    park_possible : false,
+    elevators : '',
     images : [],
     Options: [],
+    rooms : '',
     desc : '안녕하세요'
   }),
+  computed :{
+    ...mapState(['addr1','addr2','realty','contractType','realtyType','Dates'])
+  },
   methods: {
+    ...mapActions(['setrelaty']),
+    //...mapMutations(['setcontractType'])
     // uploadImage: function() {
     //   let form = new FormData()
     //   let image = this.$refs['image'].files[0]
@@ -250,6 +264,7 @@ export default {
     //   })
     //   .catch( err => console.log(err))
     // },
+
     clickInputTag: function() {
       this.$refs['image'].click()
     },
@@ -265,6 +280,27 @@ export default {
     showImageMenu: function(num, bool) {
       this.$set(this.show, num, bool)
     },
+
+    checkAddress: function(){
+      alert(this.realtyType)
+    },
+
+    sendRealty(){
+      this.setrelaty({
+          dongstr : this.addr1,
+          address : this.addr2,
+          heat : this.heat,
+          size : this.area,
+          rooms : this.rooms,
+          elevators : this.elevators,
+          description : this.desc,
+          options : this.Options,
+          price : this.price,
+          realtyType : this.realtyType,
+          contractType : this.contractType,
+          availabledate : this.Dates
+        })
+    }
   }
 }
 </script>
