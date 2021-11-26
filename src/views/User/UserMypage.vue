@@ -80,9 +80,7 @@
 
 <script>
 
-import { mapState } from "vuex";
-
-const memberStore = "memberStore";
+//import { mapState , mapActions} from "vuex";
 
 export default {
     // components :{
@@ -117,7 +115,7 @@ export default {
         }
     },
     computed:{
-        ...mapState(memberStore, ["userInfo"]),
+        //...mapState(memberStore, ["userInfo"]),
         // methods : {
         //     passwordMatch() {
         //         return () => this.password === this.verify || "Password must match";

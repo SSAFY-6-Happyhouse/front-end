@@ -8,7 +8,7 @@
             <span style="color: #1a73e8;">가격</span> </b> 
         </p>
         </v-col>
-        <div v-if="contractType == 'MONTHLYRENT'">
+        <div v-if="contractType == '0'">
         <v-col
           cols="12"
           sm="6"
@@ -27,7 +27,7 @@
         </v-col>
         </div>
 
-        <div v-else-if="contractType == 'LONGTERMRENT'">
+        <div v-else-if="contractType == '1'">
           <v-col
           cols="12"
           sm="6"
@@ -41,7 +41,7 @@
           </v-col>
         </div>
 
-        <div v-else-if="contractType == 'SALE'">
+        <div v-else-if="contractType == '2'">
           <v-col
           cols="12"
           sm="6"

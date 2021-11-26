@@ -11,15 +11,21 @@ export default new Vuex.Store({
     userId: null,
     userName: null,
     token: null,
-    relatyType: '',
+    realtyType: null,
     contractType : '',
     Segwons: [],
     Dates: [],
     sidos: [],
     guguns: [],
     dongs: [],
+    dongCodes:[],
     keywords: [],
-    prices: []
+    prices: [],
+    addr1 :'',//시구동
+    addr2 :'', //상세주소
+    zip : '',
+    realty : null,//매물 넣어주기
+    memeberinfo : null
   },
   mutations: {
     setToken: (state, token) => (state.token = token),
@@ -27,23 +33,32 @@ export default new Vuex.Store({
     setUserName: (state, userName) => (state.userName = userName),
     setDates: (state, Dates) => (state.Dates = Dates),
     setSegwon: (state, Segwons) => (state.Segwons = Segwons),
-    setrelatyType: (state, relatyType) => (state.relatyType = relatyType),
+    setrealtyType: (state, realtyType) => (state.realtyType = realtyType),
     setcontractType: (state, contractType) => (state.contractType = contractType),
     setKeyWords : (state, keywords) => (state.keywords = keywords),
     Logout: (state) => (state.token = null),
     setPrices : (state ,prices) => (state.prices = prices),
+    setAddr1 : (state,addr1) => (state.addr1 = addr1),
+    setAddr2 : (state,addr2) => (state.addr2 = addr2),
+    setZip : (state,zip) => (state.zip = zip),
+    SET_Realty : (state,realty) => (state.realty = realty),
+    SET_DongCode: (state,dongCodes) => (state.dongCodes = dongCodes),
+    RegisterInfo : (state) => (state.memeberinfo=null),
     SET_SIDO_LIST: (state, sidos) => {
       sidos.forEach((sido) => {
+        //console.log(sido.sidoCode)
         state.sidos.push({ value: sido.sidoCode, text: sido.sidoName });
       });
     },
     SET_GUGUN_LIST: (state, guguns) => {
       guguns.forEach((gugun) => {
+        console.log(gugun.gugunCode)
         state.guguns.push({ value: gugun.gugunCode, text: gugun.gugunName });
       });
     },
     SET_DONG_LIST: (state, dongs) => {
       dongs.forEach((dong) => {
+        //console.log(dong.dongName)
         state.dongs.push({ value: dong.dongCode, text: dong.dongName });
       });
     },
@@ -82,7 +97,73 @@ export default new Vuex.Store({
     },
     logout({commit}) {
       commit("Logout");
-    }
+    },
+    getSido({commit}) {
+       http.get("/district/sido")
+       .then((res)=>{
+         if(res.status === 200){
+           commit("SET_SIDO_LIST",res.data);
+         }
+       })
+       
+    },
+    getGugun({commit},sidoCode) {
+      http.get('/district/gugun', { 
+        params:{ 
+          sido : sidoCode
+        }
+      })
+      .then((res)=>{
+        if(res.status === 200){
+          commit("SET_GUGUN_LIST",res.data);
+        }
+      })
+      
+   },
+   getDong({commit},gugunCode) {
+    http.get('/district/dong', { 
+      params:{ 
+        gugun : gugunCode
+      }
+    })
+    .then((res)=>{
+      if(res.status === 200){
+        commit("SET_DONG_LIST",res.data);
+      }
+    })
+    
+ },
+    getRecommend(){
+      http.get("`/realty/recommend" ,{headers : { 'Authorization' : 'Bearer '+ this.state.token}})
+      .then((res)=>{
+        console.log(res.data)
+      })
+    },
+    setrelaty({commit},relaty){
+        http.post("/realty",relaty,{headers : { 'Authorization' : 'Bearer '+ this.state.token}})
+        .then((res) =>{
+          if(res.status === 201){
+            commit("SET_Realty",res.data)
+          }
+        })
+        
+    },
+    setRegister({commit},Registerinfo) {
+      alert(Registerinfo.password)
+      http.post("/user/signup",
+          Registerinfo
+      ).then((res) => {
+          if(res.status === 201){
+              alert("회원가입이 완료되었습니다.")
+              commit("RegisterInfo")
+              this.$route.push("/")
+          }
+      });
+    },
+    // getinfo({commit},tokename){
+    //   http.get("/user/")
+
+    // }
   },
   modules: {},
   plugins:[
